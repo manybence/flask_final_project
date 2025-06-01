@@ -1,3 +1,7 @@
+"""
+Web application for emotion detection in text. Uses Watson AI API.
+"""
+
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -14,6 +18,9 @@ def em_detector():
 
     # Send text for detection
     response = emotion_detector(text_to_analyze)
+
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
 
     # Format output
     output = f"For the given statement, the system response is \
